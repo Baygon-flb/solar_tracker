@@ -1,5 +1,5 @@
 (sym_lib_table
   (version 7)
-  (lib (name "solar_tracker")(type "KiCad")(uri "/home/baygon/Documentos/pessoais/projetos_eletronica/aqualumi/kicad/aqualumi/ctrltemp.kicad_sym")(options "")(descr ""))
+  (lib (name "solar_tracker")(type "KiCad")(uri "${KIPRJMOD}/solar_tracker.kicad_sym")(options "")(descr ""))
   (lib (name "arduino_modulos")(type "KiCad")(uri "${KIPRJMOD}/arduino_modulos.kicad_sym")(options "")(descr ""))
 )

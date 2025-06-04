@@ -79,25 +79,7 @@
 						)
 					)
 				)
-				(number ""
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin input line
-				(at 12.7 7.62 180)
-				(length 2.54)
-				(name "DS"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number ""
+				(number "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -115,61 +97,7 @@
 						)
 					)
 				)
-				(number ""
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin input line
-				(at -13.97 3.81 0)
-				(length 2.54)
-				(name "SCL"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number ""
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin output line
-				(at -13.97 -2.54 0)
-				(length 2.54)
-				(name "SDA"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number ""
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin input line
-				(at 12.7 1.27 180)
-				(length 2.54)
-				(name "SQ"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number ""
+				(number "2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -187,7 +115,79 @@
 						)
 					)
 				)
-				(number ""
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin output line
+				(at -13.97 -2.54 0)
+				(length 2.54)
+				(name "SDA"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -13.97 3.81 0)
+				(length 2.54)
+				(name "SCL"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 12.7 7.62 180)
+				(length 2.54)
+				(name "DS"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 12.7 1.27 180)
+				(length 2.54)
+				(name "SQ"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -343,7 +343,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(property "Reference" "TCS34725"
-			(at 1.016 11.938 0)
+			(at 1.016 5.842 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -388,7 +388,7 @@
 		(symbol "TCS34725_RGB_SENSOR_MODULE_0_1"
 			(rectangle
 				(start -10.16 15.24)
-				(end 10.16 -15.24)
+				(end 10.16 -11.43)
 				(stroke
 					(width 0)
 					(type default)
@@ -408,7 +408,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 11.43 0)
+				(at -12.7 7.62 0)
 				(length 2.54)
 				(name "LED"
 					(effects
@@ -426,7 +426,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 7.62 0)
+				(at -12.7 3.81 0)
 				(length 2.54)
 				(name "INT"
 					(effects
@@ -444,7 +444,7 @@
 				)
 			)
 			(pin bidirectional line
-				(at -12.7 3.81 0)
+				(at -12.7 0 0)
 				(length 2.54)
 				(name "SDA"
 					(effects
@@ -462,7 +462,7 @@
 				)
 			)
 			(pin input line
-				(at -12.7 0 0)
+				(at -12.7 -3.81 0)
 				(length 2.54)
 				(name "SCL"
 					(effects
@@ -480,7 +480,7 @@
 				)
 			)
 			(pin power_in line
-				(at -12.7 -3.81 0)
+				(at -1.27 17.78 270)
 				(length 2.54)
 				(name "3.3V"
 					(effects
@@ -498,7 +498,7 @@
 				)
 			)
 			(pin power_in line
-				(at -12.7 -7.62 0)
+				(at 0 -13.97 90)
 				(length 2.54)
 				(name "GND"
 					(effects
@@ -516,7 +516,7 @@
 				)
 			)
 			(pin power_in line
-				(at -12.7 -11.43 0)
+				(at 2.54 17.78 270)
 				(length 2.54)
 				(name "Vin"
 					(effects

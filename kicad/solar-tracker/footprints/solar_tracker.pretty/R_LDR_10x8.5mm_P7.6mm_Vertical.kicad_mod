@@ -1,0 +1,362 @@
+(footprint "R_LDR_10x8.5mm_P7.6mm_Vertical"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "Resistor, LDR 10x8.5mm")
+	(tags "Resistor LDR10.8.5mm")
+	(property "Reference" "REF**"
+		(at 3.79 -5.08 0)
+		(layer "F.SilkS")
+		(uuid "1f2a5816-bad7-420e-910b-92dee7617b64")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "LDR03"
+		(at 3.7 5.2 0)
+		(layer "F.Fab")
+		(uuid "827b8e5d-4b7d-436f-b86d-64e17be9ab32")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" "aqualumi:R_LDR_10x8.5mm_P7.6mm_Vertical"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "936c1c49-db2f-45eb-9b79-575e13bc313c")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "http://www.elektronica-componenten.nl/WebRoot/StoreNL/Shops/61422969/54F1/BA0C/C664/31B9/2173/C0A8/2AB9/2AEF/LDR03IMP.pdf"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "95879172-bbf2-4c04-adaa-d9ebab72232e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "light dependent resistor"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e24818bc-07be-4757-acab-74337b67d281")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start 0.8 -4.4)
+		(end 6.8 -4.4)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "fb3a6930-d541-4935-8671-ef5b18a1911b")
+	)
+	(fp_line
+		(start 0.8 4.4)
+		(end 6.8 4.4)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "12b5fa32-3699-4d6a-bf2b-6123c1dd2760")
+	)
+	(fp_arc
+		(start 0.8 4.4)
+		(mid -1.525374 0.019809)
+		(end 0.76735 -4.37756)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "3f8e6c52-bb19-4cea-a101-a80bef9f0ac5")
+	)
+	(fp_arc
+		(start 6.8 -4.4)
+		(mid 9.125374 -0.019809)
+		(end 6.83265 4.37756)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "554be8e2-55c0-4a2d-8235-5911a33932bd")
+	)
+	(fp_line
+		(start -1.65 -4.5)
+		(end -1.65 4.5)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "233c1269-ad04-4248-8112-3cf8b34ca345")
+	)
+	(fp_line
+		(start -1.65 -4.5)
+		(end 9.25 -4.5)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "d2e337e6-dbe6-41b1-b70b-559af76e60bc")
+	)
+	(fp_line
+		(start 9.25 4.5)
+		(end -1.65 4.5)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "b50a384a-6d8c-415e-bffb-b1962e095509")
+	)
+	(fp_line
+		(start 9.25 4.5)
+		(end 9.25 -4.5)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "53747379-7a9b-4475-adbc-b105278fe7bb")
+	)
+	(fp_line
+		(start 0.8 -4.25)
+		(end 6.8 -4.25)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "69534911-e699-40c1-92e8-6fd06b911091")
+	)
+	(fp_line
+		(start 2.9 -1.8)
+		(end 4.7 -1.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "735bb85f-5baf-4e97-8a24-30ee29300965")
+	)
+	(fp_line
+		(start 2.9 -1.2)
+		(end 2.9 -0.6)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "565915f7-1a24-45ae-a9f6-2d0716a6e198")
+	)
+	(fp_line
+		(start 2.9 -0.6)
+		(end 4.7 -0.6)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "d8ebe67f-6797-4a2a-853a-a51f9d4d0171")
+	)
+	(fp_line
+		(start 2.9 0)
+		(end 2.9 0.6)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0fa1469d-2f37-45d2-ac8f-a64b7418d743")
+	)
+	(fp_line
+		(start 2.9 0.6)
+		(end 4.7 0.6)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "84e9f66a-16bb-40d8-b6c2-a015dae2573f")
+	)
+	(fp_line
+		(start 2.9 1.2)
+		(end 2.9 1.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3ea4a391-d64b-4808-8009-8da530a739e4")
+	)
+	(fp_line
+		(start 2.9 1.8)
+		(end 4.7 1.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "c03a6b1d-9c77-4106-b0fc-12620edae8c5")
+	)
+	(fp_line
+		(start 4.7 -1.8)
+		(end 4.7 -1.2)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "329aaf40-e869-4ef8-935f-3bf246b6af59")
+	)
+	(fp_line
+		(start 4.7 -1.2)
+		(end 2.9 -1.2)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "f817395d-a9d6-4e85-9d01-c5a5d34b15fb")
+	)
+	(fp_line
+		(start 4.7 -0.6)
+		(end 4.7 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3e154340-9f34-4bba-b0cd-74a1d4eae3e8")
+	)
+	(fp_line
+		(start 4.7 0)
+		(end 2.9 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "fe8f95b4-5280-4aea-9e0e-108f29a01338")
+	)
+	(fp_line
+		(start 4.7 0.6)
+		(end 4.7 1.2)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "058e5f92-b981-41d4-b998-392fd1756f7e")
+	)
+	(fp_line
+		(start 4.7 1.2)
+		(end 2.9 1.2)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "54176d8e-4ccc-492d-91c2-0061a957c4f9")
+	)
+	(fp_line
+		(start 6.8 4.25)
+		(end 0.8 4.25)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "c1374b0a-59d3-4e45-913a-32ca6c46d2c6")
+	)
+	(fp_arc
+		(start 0.8 4.25)
+		(mid -1.4021 0.025641)
+		(end 0.758251 -4.22022)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "b0f02c69-3d1b-4763-9f1c-66b6119ae708")
+	)
+	(fp_arc
+		(start 6.8 -4.25)
+		(mid 9.0021 -0.025641)
+		(end 6.841749 4.22022)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "e466d653-672d-4f5e-9e88-02bdc925dd9e")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 3.8 -2.5 0)
+		(layer "F.Fab")
+		(uuid "6d4efab4-439e-4e67-b694-04e2e99e51c7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 2 2)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "df5d3530-ec67-492b-8260-26e4f8584355")
+	)
+	(pad "2" thru_hole circle
+		(at 7.6 0)
+		(size 2 2)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d5ba9023-581c-49fb-9a5b-a1b3154f8aed")
+	)
+	(model "${KICAD8_3DMODEL_DIR}/OptoDevice.3dshapes/R_LDR_10x8.5mm_P7.6mm_Vertical.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
