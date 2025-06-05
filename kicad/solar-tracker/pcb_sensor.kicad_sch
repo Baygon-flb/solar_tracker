@@ -1051,23 +1051,23 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 87.63) (xy 50.8 87.63)
+			(xy 39.37 77.47) (xy 50.8 77.47)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "001bd53a-5b93-4aae-a210-73140f03bdf7")
+		(uuid "1598d922-ba1a-481b-9ded-c101897aca51")
 	)
 	(wire
 		(pts
-			(xy 39.37 82.55) (xy 50.8 82.55)
+			(xy 39.37 74.93) (xy 50.8 74.93)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "02bcc436-4430-44ca-b6c0-d6b47e7fcc9b")
+		(uuid "1e231caf-3b6f-4e3b-8acf-300d770b7895")
 	)
 	(wire
 		(pts
@@ -1078,16 +1078,6 @@
 			(type default)
 		)
 		(uuid "257c7185-5264-459c-8a4d-dec22545c725")
-	)
-	(wire
-		(pts
-			(xy 39.37 74.93) (xy 50.8 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "28f67e51-89ec-4231-9349-b45f9677349d")
 	)
 	(wire
 		(pts
@@ -1108,16 +1098,6 @@
 			(type default)
 		)
 		(uuid "29d46fbf-3f5e-453d-86a0-1eef28dd891b")
-	)
-	(wire
-		(pts
-			(xy 39.37 77.47) (xy 50.8 77.47)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3fd8755e-c84a-4e80-8f03-1a35cb24af99")
 	)
 	(wire
 		(pts
@@ -1151,13 +1131,13 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 85.09) (xy 50.8 85.09)
+			(xy 39.37 92.71) (xy 50.8 92.71)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5a912d6b-d5c0-47da-beb5-4acace65a8ef")
+		(uuid "681338e1-bc0a-4a8a-aef5-d269c1b7657c")
 	)
 	(wire
 		(pts
@@ -1181,6 +1161,16 @@
 	)
 	(wire
 		(pts
+			(xy 39.37 80.01) (xy 50.8 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74d69d72-6ea8-4058-9c58-89739d495d1d")
+	)
+	(wire
+		(pts
 			(xy 107.95 107.95) (xy 107.95 109.22)
 		)
 		(stroke
@@ -1188,6 +1178,16 @@
 			(type default)
 		)
 		(uuid "7837c2b9-d2d9-457b-bc52-ed63f18f98b6")
+	)
+	(wire
+		(pts
+			(xy 39.37 82.55) (xy 50.8 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d7f1fe4-3239-4cbd-96d8-859ef8141d24")
 	)
 	(wire
 		(pts
@@ -1231,16 +1231,6 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 90.17) (xy 50.8 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "95d16911-013e-482b-ad3f-21679660907a")
-	)
-	(wire
-		(pts
 			(xy 58.42 60.96) (xy 71.12 60.96)
 		)
 		(stroke
@@ -1271,6 +1261,16 @@
 	)
 	(wire
 		(pts
+			(xy 39.37 85.09) (xy 50.8 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a83e3b4d-07b9-4690-8ea1-13c4e5ca27b7")
+	)
+	(wire
+		(pts
 			(xy 90.17 97.79) (xy 90.17 93.98)
 		)
 		(stroke
@@ -1291,6 +1291,16 @@
 	)
 	(wire
 		(pts
+			(xy 39.37 87.63) (xy 50.8 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd1ffd38-fa0c-473c-8793-4982d0513f6d")
+	)
+	(wire
+		(pts
 			(xy 81.28 48.26) (xy 83.82 48.26)
 		)
 		(stroke
@@ -1301,16 +1311,6 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 92.71) (xy 50.8 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dee2260e-2f5e-4352-adad-850a2fc9a92b")
-	)
-	(wire
-		(pts
 			(xy 83.82 60.96) (xy 96.52 60.96)
 		)
 		(stroke
@@ -1318,6 +1318,16 @@
 			(type default)
 		)
 		(uuid "e8281ea4-f003-4d94-ae6a-daa7cf048865")
+	)
+	(wire
+		(pts
+			(xy 39.37 90.17) (xy 50.8 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eb09b3af-a019-4402-b30f-27e156dbe699")
 	)
 	(wire
 		(pts
@@ -1351,16 +1361,6 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 80.01) (xy 50.8 80.01)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fb0b2310-39a2-4c0b-a9c9-b223b872f540")
-	)
-	(wire
-		(pts
 			(xy 83.82 57.15) (xy 83.82 60.96)
 		)
 		(stroke
@@ -1370,7 +1370,7 @@
 		(uuid "feedf659-3e12-42a2-8ee3-830aa1656a64")
 	)
 	(label "LDR4"
-		(at 44.45 92.71 0)
+		(at 44.45 87.63 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1381,7 +1381,7 @@
 		(uuid "1bd9b23a-081e-429a-b920-92919a962378")
 	)
 	(label "SCL"
-		(at 44.45 80.01 0)
+		(at 44.45 92.71 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1392,7 +1392,7 @@
 		(uuid "260c54f5-07bd-4ff9-b42b-92d5dc5bed74")
 	)
 	(label "LDR2"
-		(at 44.45 87.63 0)
+		(at 44.45 82.55 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1425,7 +1425,7 @@
 		(uuid "5d5e4824-1720-4cdd-9d2c-9ff8a0463702")
 	)
 	(label "LDR1"
-		(at 44.45 85.09 0)
+		(at 44.45 80.01 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1436,7 +1436,7 @@
 		(uuid "6bd5da25-44cd-4dae-bd64-d020f01fa3c2")
 	)
 	(label "SDA"
-		(at 44.45 82.55 0)
+		(at 44.45 90.17 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1447,7 +1447,7 @@
 		(uuid "7f92ad83-5a61-4289-b00d-f71c49668eb5")
 	)
 	(label "LDR3"
-		(at 44.45 90.17 0)
+		(at 44.45 85.09 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1480,7 +1480,7 @@
 		(uuid "d0df8e28-9a70-47c3-a635-5711b83206e5")
 	)
 	(label "3.3v"
-		(at 44.45 74.93 0)
+		(at 44.45 77.47 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1491,7 +1491,7 @@
 		(uuid "d2abd9cc-d6db-498b-a9f8-6f250daece82")
 	)
 	(label "GND"
-		(at 44.45 77.47 0)
+		(at 44.45 74.93 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1525,7 +1525,7 @@
 	)
 	(hierarchical_label "SDA"
 		(shape input)
-		(at 39.37 82.55 180)
+		(at 39.37 90.17 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1537,7 +1537,7 @@
 	)
 	(hierarchical_label "LDR1"
 		(shape input)
-		(at 39.37 85.09 180)
+		(at 39.37 80.01 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1549,7 +1549,7 @@
 	)
 	(hierarchical_label "3.3V"
 		(shape input)
-		(at 39.37 74.93 180)
+		(at 39.37 77.47 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1561,7 +1561,7 @@
 	)
 	(hierarchical_label "SCL"
 		(shape input)
-		(at 39.37 80.01 180)
+		(at 39.37 92.71 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1573,7 +1573,7 @@
 	)
 	(hierarchical_label "GND"
 		(shape input)
-		(at 39.37 77.47 180)
+		(at 39.37 74.93 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1585,7 +1585,7 @@
 	)
 	(hierarchical_label "LDR3"
 		(shape input)
-		(at 39.37 90.17 180)
+		(at 39.37 85.09 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1597,7 +1597,7 @@
 	)
 	(hierarchical_label "LDR2"
 		(shape input)
-		(at 39.37 87.63 180)
+		(at 39.37 82.55 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1609,7 +1609,7 @@
 	)
 	(hierarchical_label "LDR4"
 		(shape input)
-		(at 39.37 92.71 180)
+		(at 39.37 87.63 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1704,7 +1704,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LDR03"
+		(property "Value" "LDR01"
 			(at 60.96 54.6099 0)
 			(effects
 				(font
@@ -1713,7 +1713,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "OptoDevice:R_LDR_10x8.5mm_P7.6mm_Vertical"
+		(property "Footprint" "solar_tracker:R_LDR_5.1x4.3mm_P3.4mm_Vertical"
 			(at 62.865 53.34 90)
 			(effects
 				(font
@@ -1840,7 +1840,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LDR03"
+		(property "Value" "LDR02"
 			(at 73.66 54.6099 0)
 			(effects
 				(font
@@ -1849,7 +1849,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "OptoDevice:R_LDR_10x8.5mm_P7.6mm_Vertical"
+		(property "Footprint" "solar_tracker:R_LDR_5.1x4.3mm_P3.4mm_Vertical"
 			(at 75.565 53.34 90)
 			(effects
 				(font
@@ -2062,7 +2062,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LDR03"
+		(property "Value" "LDR04"
 			(at 99.06 54.6099 0)
 			(effects
 				(font
@@ -2071,7 +2071,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "OptoDevice:R_LDR_10x8.5mm_P7.6mm_Vertical"
+		(property "Footprint" "solar_tracker:R_LDR_5.1x4.3mm_P3.4mm_Vertical"
 			(at 100.965 53.34 90)
 			(effects
 				(font
@@ -2141,7 +2141,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "OptoDevice:R_LDR_10x8.5mm_P7.6mm_Vertical"
+		(property "Footprint" "solar_tracker:R_LDR_5.1x4.3mm_P3.4mm_Vertical"
 			(at 88.265 53.34 90)
 			(effects
 				(font
@@ -2191,19 +2191,17 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "ce14960c-e46c-4a26-af2f-183da355edbe")
-		(property "Reference" "TCS1"
-			(at 119.38 93.3449 0)
+		(property "Reference" "TCS34725"
+			(at 120.65 91.44 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "~"
-			(at 119.38 95.25 0)
+			(at 119.38 93.345 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2211,7 +2209,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical"
+		(property "Footprint" "solar_tracker:TSC34725_RGB_SENSOR"
 			(at 104.14 92.71 0)
 			(effects
 				(font
@@ -2262,7 +2260,7 @@
 		(instances
 			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101/ac7019d5-3850-4651-acfd-b78620f95be5"
-					(reference "TCS1")
+					(reference "TCS34725")
 					(unit 1)
 				)
 			)
