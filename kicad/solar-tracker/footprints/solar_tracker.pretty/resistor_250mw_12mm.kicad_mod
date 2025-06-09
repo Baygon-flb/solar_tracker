@@ -7,7 +7,7 @@
 		(at 0.254 -2.286 0)
 		(unlocked yes)
 		(layer "F.SilkS")
-		(uuid "5811e859-78b9-4bc5-8ce8-f9f29d6e14a8")
+		(uuid "c8619cea-2601-498e-b36a-7452173e2ed3")
 		(effects
 			(font
 				(size 1 1)
@@ -19,7 +19,7 @@
 		(at 0.254 2.54 0)
 		(unlocked yes)
 		(layer "F.Fab")
-		(uuid "383bd266-c211-4ffb-9a29-d70703139f31")
+		(uuid "38454386-db61-41bd-844f-49cffb8554b2")
 		(effects
 			(font
 				(size 1 1)
@@ -31,7 +31,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "a720faf2-f7b9-4c06-8906-8ded740b285b")
+		(uuid "47cc5e03-ee72-4545-aefc-e98be25cc050")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -43,7 +43,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "44d85620-4f94-4b21-8994-cf43fa2bbc1d")
+		(uuid "85e52881-4a1b-4f92-bbee-77c7c5ea9638")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -55,7 +55,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "916e81e6-e30f-4418-9c2a-a3b52043cfd3")
+		(uuid "a2b82aaf-1a06-4257-8ea5-e2f56278e014")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -72,7 +72,7 @@
 			(type default)
 		)
 		(layer "F.SilkS")
-		(uuid "407f9206-8d45-4a1f-89ef-1f683958a67b")
+		(uuid "9d6c7081-1a98-4a21-b352-fc929f240bc5")
 	)
 	(fp_line
 		(start 3.302 0)
@@ -82,7 +82,7 @@
 			(type default)
 		)
 		(layer "F.SilkS")
-		(uuid "e0a916bd-12f8-4bb8-a8d8-a8a3bd7b4e82")
+		(uuid "6db71d96-d280-4875-9917-76b48aab8cb5")
 	)
 	(fp_rect
 		(start -3.556 -1.27)
@@ -93,7 +93,7 @@
 		)
 		(fill none)
 		(layer "F.SilkS")
-		(uuid "7e292e6d-47de-416a-91ec-1392eca26b97")
+		(uuid "74959403-baea-4df6-937c-19e593c545b3")
 	)
 	(pad "1" thru_hole circle
 		(at -5.842 0)
@@ -101,7 +101,7 @@
 		(drill 0.8)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
-		(uuid "ee362f2e-5f34-4aea-9ca9-0b7e692d3565")
+		(uuid "5bbb1f01-438f-4ccd-b7d9-a7fb2b373fa4")
 	)
 	(pad "2" thru_hole circle
 		(at 5.334 0)
@@ -109,6 +109,6 @@
 		(drill 0.8)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
-		(uuid "583c6ade-46af-4fbf-9dd7-c98d8828619e")
+		(uuid "032f8a0e-a5ce-47ef-af1e-976d2208e548")
 	)
 )
