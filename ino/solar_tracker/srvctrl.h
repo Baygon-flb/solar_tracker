@@ -45,24 +45,24 @@
 // ele chega em 20, produzimos o pulso de controle do serve e zeraramos o contador, reiniciando o ciclo.
 //  
 
-class srvctrl {
+class Srvctrl {
 
     int pin;             //Pino de controle do servo (tem que ser PWM)
     int target;          //Posição alvo do servo
     int pos;             //Posição atual
     int duty;            //Largura em ms do duty cycle relativo ao angulo atual do servo
     int pace = 1;        //Passo (angulo) de reposicionamento do servo.
-    int pulse_min = 400  //largura em us do duty cycle para o angulo 0 do servo
-    int pulse_max = 2400 //largura em us do duty cycle para o angulo 180 do servo
-    int angulo_min = 0   //Angulo mínimo para o servo
-    int angulo_max = 180 //Angulo máximo para o servo
+    int pulse_min = 400; //largura em us do duty cycle para o angulo 0 do servo
+    int pulse_max = 2400;//largura em us do duty cycle para o angulo 180 do servo
+    int angulo_min = 0;  //Angulo mínimo para o servo
+    int angulo_max = 180;//Angulo máximo para o servo
     long syncT = 20;     //tempo de sincronia do servo em ms
     int cSync =0;        //Contador de sincronia
 
     public:
 
     // construtor da classe
-    srvctrl( int _pin ){
+    Srvctrl( int _pin ){
       pin = _pin;
       pinMode( pin, OUTPUT);
       digitalWrite( pin, LOW );
@@ -88,15 +88,15 @@ class srvctrl {
     // Define o duty para o reposicionamento do servo
     void step() {
       if ( duty > 0 ) {
-        if( pos+pace <= dutyCur ) { pos += pace; }
-        else if( pos-pace >= dutyCur ) { pos -= pace; }
-        else { pos=dutyCur; }
+        if( pos+pace <= target ) { pos += pace; }
+        else if( pos-pace >= target ) { pos -= pace; }
+        else { pos=target; }
         duty = map( pos, angulo_min, angulo_max, pulse_min, pulse_max);
       }
     };
 
     // verifica se o servo está na posição alvo
-    bool stable() { return (pos == dutyCur); };
+    bool stable() { return (pos == target); };
 
   // Para o servo
     void srvStop() {

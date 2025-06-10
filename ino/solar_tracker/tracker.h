@@ -1,7 +1,7 @@
 // classe tracker
 //
 
-#include "svrctl.h"
+#include "srvctl.h"
 
 class Tracker {
 
@@ -12,24 +12,24 @@ class Tracker {
   int alturaPos = 0;
   int azimutePos = 0;
   int pace = 3;
-  float erro = 10; //percentual de tolerância na diferença de leitura do sensores de cada eixo
+  float erro = 3; //percentual de tolerância na diferença de leitura do sensores de cada eixo
   float tolerancia = 255*erro/100;
-  int up, down, left, right; 
-  float Vup, Vdown, Vleft, Vright;
+  float L, N, S, O; 
+  float _L, _N, _S, _O;
 
   float getVals() {
       for (i=1, i++, i<10 ) {
-        Vup += analogRead( up );
-        Vdown += analogRead( down );
-        Vrigth += analogRead( right );
-        Vleft += analogRead( left );
+        _L += analogRead( L );
+        _N += analogRead( N );
+        _S += analogRead( S );
+        _O += analogRead( O );
       }
-      Vup = Vup/10;
-      Vdown = Vdown/10;
-      Vleft = Vleft/10;
-      Vright = Vright/10;
+      _L = _L/10;
+      _N = _O/10;
+      _S = _O/10;
+      _O = _O/10;
 
-      return Vup+VDown+Vleft+Vright;
+      return ( _L + _N + _S + _O );
     }
 
   };
@@ -63,17 +63,17 @@ class Tracker {
   };
 
   public:
-  tracker( int pin_UP, int pin_DOWN, int pin_RIGHT, int pin_LEFT int pin_s1, int pin_s2 ) {
+  tracker( int pin_L, int pin_N, int pin_S, int pin_O int pin_s1, int pin_s2 ) {
     s1 = new srvctl( pin_s1 );          //instancia objeto para controle do servo 1 (Altura)
     s2 = new srvctl( pin_s2 );          //instancia objeto para controle do servo 2 (Azimute)
-    pinMode( pin_UP, INPUT_PULLUP );    
-    pinMode( pin_DOWN, INPUT_PULLUP );
-    pinMode( pin_RIGHT, INPUT_PULLUP );
-    pinMode( pin_LEFT, INPUT_PULLUP );
-    up = pin_UP;
-    down = pin_DOWN;
-    right = pin_RIGHT;
-    left = pin_LEFT;
+    pinMode( pin_L, INPUT_PULLUP );    
+    pinMode( pin_N, INPUT_PULLUP );
+    pinMode( pin_S, INPUT_PULLUP );
+    pinMode( pin_O, INPUT_PULLUP );
+    L = pin_L;
+    N = pin_N;
+    S = pin_S;
+    O = pin_O;
   };
 
 
