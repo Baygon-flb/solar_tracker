@@ -11,13 +11,11 @@
 // 
 
 #include <Arduino.h>
-#include <EEPROM.h>
 #include <SPI.h>
 #include <Wire.h>
-#include <BH1750.h>
-#include "Adafruit_TCS34725.h"
+#include <Adafruit_TCS34725.h>
 #include <RTClib.h>  //Adafruit RTClib
-#include <TimeLib.h>
+#include "regdata.h"
 #include "srvctrl.h"
 
 #define PIN_S1 5
@@ -29,7 +27,7 @@
 
 #define COLETA 1
 #define AJUSTE 0
-#define SERIAL_RATE 9600
+#define SERIAL_RATE 115200
 #define DEBUG 0
 
 //Instanciando as classes
@@ -37,11 +35,14 @@ Adafruit_TCS34725 TCS = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_300MS, TCS347
 RTC_DS1307 rtc;
 Srvctrl s1( PIN_S1 );
 Srvctrl s2( PIN_S2 );
+Regdata reg;
 
 // variáveis de controle
 int modo = COLETA;
 float minuto = 0;
 long tempo = 0;
+int erro = 3;
+float tolerancia = (2.55*erro);
 
 //horarios de inicio e fim
 float hora_inicio = 5;
@@ -55,9 +56,9 @@ float fim = hora_fim+(minuto_fim/60);
 int azimuteMin = 10;
 int azimuteMax = 170;
 int alturaMin = 15;
-int alturaMAx = 170;
-int S1angulo = 90;
-int S2angulo = 90;
+int alturaMax = 170;
+int S1angulo = int((azimuteMax-azimuteMin)/2);
+int S2angulo = int((alturaMax-alturaMin)/2);
 
 void debug( String msg, bool nl = true ) {
 
@@ -74,50 +75,69 @@ ISR(TIMER2_OVF_vect) {//trata Overflow do Timer,
   s2.pulse();
 } //end Timer2 OVF
 
+void descarrega(){
+  if(Serial) {
+    Serial.println();
+    Serial.println(F("Descarregando os dados da memoria..") );
+    Serial.println();
+    int data[5];
+    for( int p=0; p <= reg.curAddr(); p++) {
+      reg.read( p, data );
+      for( int i=0; i<5; i++) {
+          Serial.print( data[i] );
+          Serial.print(";");
+      }
+      Serial.println();
+    }
+    //reg.reset();
+  }
+}
 
 void setup() {
   Serial.begin( SERIAL_RATE );
-  debug(F("SOLAR TRACKER \n ______________________"));
-  debug(F("Inicializando o RTC..."));
+  Serial.println(F("SOLAR TRACKER"));
+  Serial.println(F("-------------"));
+  Serial.println(F("Inicializando o RTC..."));
   while(!rtc.begin()) { delay(50); }
   if (! rtc.isrunning() ) {
-    debug(F("RTC não inicializado. Ajustando horário"));
+    Serial.println(F("RTC não inicializado. Ajustando horário"));
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
-  }
-  debug(F("Ajustando o horário do sistema..."));
-  setSyncProvider(rtc.now()); 
-  long tempo = millis();
-  while (timeStatus()!= timeSet && abs(millis()-tempo) < 5000 ) { delay 100 };
-  if (timeStatus()!= timeSet) {
-     debug(F("Unable to sync with the RTC"));
-  }
-  else {
-     debug(F("RTC has set the system time")); 
   }
 
   DateTime now = rtc.now();
   minuto = int(now.minute()/10)*10;
 
+  Serial.println(F("Inicializando LDRs..."));
   // Configurando os LDRS
   pinMode( PIN_L, INPUT_PULLUP );    
   pinMode( PIN_N, INPUT_PULLUP );
   pinMode( PIN_S, INPUT_PULLUP );
   pinMode( PIN_O, INPUT_PULLUP );
 
+  Serial.println(F("Inicializando Servos..."));
   //configura os servos
   s1.setAnguloMax(azimuteMax);
   s1.setAnguloMin(azimuteMin);
+  s1.setDutyMax( int( 200/18*azimuteMax+400) );
+  s1.setDutyMin( int( 200/18*azimuteMin+400) );
   s1.setTarget( S1angulo );
   s2.setAnguloMax(alturaMax);
   s2.setAnguloMin(alturaMin);
+  s2.setDutyMax( int( 200/18*alturaMax+400) );
+  s2.setDutyMin( int( 200/18*alturaMin+400) );
   s2.setTarget( S2angulo );
 
+  Serial.println(F("Inicializando o timer..."));
   //configura o timer interrupt para enviar o sinal de controle dos servos
   TCCR2A = 0xA3;                                        //pwm não invertido, fast pwm 
   TCCR2B = 0x04;                                        //pre scaler 1:64
   TIMSK2 = 0x01;                                        //liga interrupção do Timer2
   sei();                                                //habilita interrupção global
 
+  Serial.println(F("Tudo pronto!"));
+  Serial.println(F("Aperte C para entrar no modo de configuração"));
+  Serial.println(F("Aperte D para descarregar dados da memória"));
+  Serial.println();
   
 }
 
@@ -125,7 +145,7 @@ void loop() {
   
   // Faz 10 medições dos valores dos LDR's e calcula a média
   float L=0, N=0, S=0, O=0;
-  for (i=1, i<10, i++ ) {
+  for ( int i=1; i<10; i++ ) {
     L += analogRead( PIN_L );
     N += analogRead( PIN_N );
     S += analogRead( PIN_S );
@@ -136,7 +156,7 @@ void loop() {
   S = S/10;
   O = O/10;
  
-  int S2AnguloAnterior = S1angulo; //Guarda azimute anterior
+  int S1AnguloAnterior = S1angulo; //Guarda azimute anterior
   int S2AnguloAnterior = S2angulo; //Guarta altura anterior
 
   float _NE = N + L; //calcula luminosidade ao nordeste
@@ -145,7 +165,7 @@ void loop() {
   float _SO = S + O; //calcula luminosidade ao suldoeste
 
   // Ajuste do angulo de altura
-  if ( abs( _SE - _SO) > tolerancia || abs( _SE - _SO) > tolerancia ) {
+  if ( abs( _SE - _SO ) > tolerancia || abs( _SE - _SO ) > tolerancia ) {
     if (_SE > _SO && _NE > _NO ) { S2angulo--; }
     if (_SE < _SO && _NE < _NO ) { S2angulo++; }
   }
@@ -168,26 +188,31 @@ void loop() {
 
   DateTime now = rtc.now();
   float agora = now.hour()+( now.minute()/60);
-  float m = now.minuto();
+  float m = now.minute();
 
   //Se estiver no intervalo de amostragem e o minuto for multiplo de 10, faz leitura e salva na memória.
   //if ( agora >= inicio && agora <= fim && m == minuto ) {
   //  ( minuto == 50 ) && minuto = 0 || minuto+=10;
-  if (abs( millis()-tempo) > 2000
+  if (abs( millis()-tempo) > 2000 ) {
     
+    int h=now.hour();
     //Lendo TSC34725
     uint16_t r, g, b, c;
     //O sensor lê os valores do Vermelho (R), Verde(G), Azul(B)
     TCS.getRawData(&r, &g, &b, &c);
 
-    String msg = "";
-    msg+=now.hour()+":"+now.minute();
-    msg+=" | R: "+r+" | G: "+g+" | B: "+b
+    reg.write( h, m, r, g, b );
 
-    debug( msg );
+    String msg = "";
+    msg+=String(h)+":"+String(m);
+    msg+=" | R: "+String(r)+" | G: "+String(g)+" | B: "+String(b);
+  
+    Serial.println( msg );
     tempo = millis();
 
   }
   else { delay( 18 ); };
+  char input = Serial.read();
+  if ( String(input)=="D"){ descarrega(); }
  
 }
