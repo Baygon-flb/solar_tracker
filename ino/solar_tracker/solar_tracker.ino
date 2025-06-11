@@ -25,8 +25,6 @@
 #define PIN_S A2 //LDR3 Sul
 #define PIN_O A3 //LDR4 oeste
 
-#define COLETA 1
-#define AJUSTE 0
 #define SERIAL_RATE 115200
 #define DEBUG 0
 
@@ -38,12 +36,12 @@ Srvctrl s2( PIN_S2 );
 Regdata reg;
 
 // variáveis de controle
-int modo = COLETA;
 float minuto = 0;
 float hora = 0;
 long tempo = 0;
-int erro = 3;
+int erro = 4;
 float tolerancia = (2.55*erro);
+float intervalo = 1;
 
 //horarios de inicio e fim
 float hora_inicio = 5;
@@ -76,29 +74,41 @@ ISR(TIMER2_OVF_vect) {//trata Overflow do Timer,
   s2.pulse();
 } //end Timer2 OVF
 
+// Envia as dados das amostras para o terminal serial
 void descarrega(){
-  if(Serial) {
-    Serial.println();
-    Serial.println(F("Descarregando os dados da memoria..") );
-    Serial.println();
-    for( int p=0; p < reg.curAddr(); p++) {
-      int data[5];
-      reg.read( p, data );
-      for( int i=0; i<5; i++) {
-          Serial.print( data[i] );
-          Serial.print(";");
-      }
-      Serial.println();
+  Serial.println();
+  Serial.println(F("Descarregando os dados da memoria..") );
+  Serial.println();
+  for( int p=0; p < reg.curAddr(); p++) {
+    int data[5];
+    reg.read( p, data );
+    for( int i=0; i<5; i++) {
+      Serial.print( data[i] );
+      Serial.print(";");
     }
-    reg.reset();
+    Serial.println();
   }
+  reg.reset();
+}
+
+void config( ) {
+
+  DateTime now = rtc.now();
+  Serial.println(F("---------------"));
+  Serial.println(F("DEBUG"));
+  Serial.println("Hora atual: "+String( now.hour())+":"+String(now.minute()));
+  Serial.println("var minuto: "+String( minuto ));
+  
 }
 
 void setup() {
+  // coloca sensor TCS34725 em hibernação
+  //TCS.disable();
+
   Serial.begin( SERIAL_RATE );
   Serial.println(F("SOLAR TRACKER"));
   Serial.println(F("-------------"));
-  /*
+  
   Serial.println(F("Inicializando o RTC..."));
   while(!rtc.begin()) { delay(50); }
   if (! rtc.isrunning() ) {
@@ -107,8 +117,10 @@ void setup() {
   }
 
   DateTime now = rtc.now();
-  minuto = int(now.minute()/10)*10;
-  */
+  minuto = int(now.minute()/intervalo)*intervalo;
+
+  Serial.println( "Hora atual: "+String( now.hour())+":"+String( now.minute()));
+  
   Serial.println(F("Inicializando LDRs..."));
   // Configurando os LDRS
   pinMode( PIN_L, INPUT_PULLUP );    
@@ -144,8 +156,8 @@ void setup() {
   Serial.println(F("Aperte D para descarregar dados da memória"));
   Serial.println();
 
-  minuto = minuto_inicio;
-  hora = hora_inicio;
+  //minuto = minuto_inicio;
+  //hora = hora_inicio;
   
 }
 
@@ -164,9 +176,6 @@ void loop() {
   S = S/10;
   O = O/10;
  
-  int S1AnguloAnterior = S1angulo; //Guarda azimute anterior
-  int S2AnguloAnterior = S2angulo; //Guarta altura anterior
-
   float _NE = N + L; //calcula luminosidade ao nordeste
   float _SE = S + L; //calcula luminosidade ao suldeste
   float _NO = N + O; //calcula luminosidade ao noroeste
@@ -189,43 +198,51 @@ void loop() {
   if( S2angulo > alturaMax ) { S2angulo = alturaMax; }
   if( S2angulo < alturaMin ) { S2angulo = alturaMin; }
 
-  // if ( !( S1angulo == S1AnguloAnterior && S1angulo == S1AnguloAnterior  )) { mudou = true; }
-
+  // Envia os novos angulos para os Servos
   s1.setTarget( S1angulo );
   s2.setTarget( S2angulo );
 
-  /*
-  DateTime now = rtc.now();
-  float agora = now.hour()+( now.minute()/60);
-  float m = now.minute();
+  // Controle do tempo de coleta de dados
+  float agora, m;
+  DateTime now;
+  if ( abs( millis()-tempo) > 5000 ) { 
+    now = rtc.now();
+    agora = now.hour()+( now.minute()/60);
+    m = now.minute();
+    tempo = millis();
+  }
 
-  //Se estiver no intervalo de amostragem e o minuto for multiplo de 10, faz leitura e salva na memória.
+  //Se estiver no intervalo de amostragem, faz leitura e salva na memória.
   if ( agora >= inicio && agora <= fim && m == minuto ) {
-    ( minuto == 50 ) && minuto = 0 || minuto+=10;
-  */
-  if (abs( millis()-tempo) > 2000 ) {
-    
-    //int h=now.hour();
+  
+  // if (abs( millis()-tempo) > 2000 ) {
+    int hora=now.hour();
     //Lendo TSC34725
-    uint16_t r, g, b, c;
-    //O sensor lê os valores do Vermelho (R), Verde(G), Azul(B)
-    TCS.getRawData(&r, &g, &b, &c);
-
+    float r, g, b, c;
+    TCS.getRGB( &r, &g, &b); //Coleta os dados já mormalizados para 0 a 255.
+    while ( r+g+b == 0 ) {
+      Serial.println( "Erro na leitura do sensor")
+      TCS.disable();
+      delay( 1000 );
+      TCS.enable();
+      TCS.getRGB( &r, &g, &b);
+    }
+    //Registra amostragem na EEprom
     reg.write( int(hora), int(minuto), r, g, b );
-
-    minuto++;
-    if(minuto==60){ hora++; minuto=0; }
 
     String msg = "";
     msg+=String(int(hora))+":"+String(int(minuto));
     msg+=" | R: "+String(r)+" | G: "+String(g)+" | B: "+String(b);
   
     Serial.println( msg );
-    tempo = millis();
 
+    // Ajusta o próximo intervalo de amostragem
+    minuto+=intervalo;
+    if ( minuto >= 60 ) { minuto = 0; }
   }
-  else { delay( 18 ); };
+  delay( 30 ); 
   char input = Serial.read();
   if ( String(input)=="D"){ descarrega(); }
+  if ( String(input)=="C"){ config(); }
  
 }
