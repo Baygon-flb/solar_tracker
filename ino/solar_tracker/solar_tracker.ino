@@ -15,6 +15,7 @@
 #include <Wire.h>
 #include <Adafruit_TCS34725.h>
 #include <RTClib.h>  //Adafruit RTClib
+#include <avr/wdt.h>
 #include "regdata.h"
 #include "srvctrl.h"
 
@@ -76,6 +77,7 @@ ISR(TIMER2_OVF_vect) {//trata Overflow do Timer,
 
 // Envia as dados das amostras para o terminal serial
 void descarrega(){
+  wdt_reset();
   Serial.println();
   Serial.println(F("Descarregando os dados da memoria..") );
   Serial.println();
@@ -104,6 +106,16 @@ void config( ) {
 void setup() {
   // coloca sensor TCS34725 em hibernação
   //TCS.disable();
+  
+  //Verfica se houve um reset devido travamento
+  if (MCUSR&8) {
+    //recupera a última posição do ponteiro de memória
+    //antes do travamento.
+    reg.recover();    
+  }
+
+  //habilita o whatchdog para 5s
+  wdt_enable(WDTO_4S);
 
   Serial.begin( SERIAL_RATE );
   Serial.println(F("SOLAR TRACKER"));
@@ -111,6 +123,7 @@ void setup() {
   
   Serial.println(F("Inicializando o RTC..."));
   while(!rtc.begin()) { delay(50); }
+  wdt_reset();
   if (! rtc.isrunning() ) {
     Serial.println(F("RTC não inicializado. Ajustando horário"));
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
@@ -162,6 +175,7 @@ void setup() {
 }
 
 void loop() {
+   wdt_reset();
   
   // Faz 10 medições dos valores dos LDR's e calcula a média
   float L=0, N=0, S=0, O=0;
@@ -221,11 +235,12 @@ void loop() {
     float r, g, b, c;
     TCS.getRGB( &r, &g, &b); //Coleta os dados já mormalizados para 0 a 255.
     while ( r+g+b == 0 ) {
-      Serial.println( "Erro na leitura do sensor")
+      Serial.println( "Erro na leitura do sensor");
       TCS.disable();
       delay( 1000 );
       TCS.enable();
       TCS.getRGB( &r, &g, &b);
+      wdt_reset();
     }
     //Registra amostragem na EEprom
     reg.write( int(hora), int(minuto), r, g, b );
