@@ -17,6 +17,7 @@ class Regdata {
       EEPROM.write( pos, data[i] );
       pos++;
     }      
+    pos++;
   };
 
   void read( int numReg, int data[] ) {
@@ -29,6 +30,6 @@ class Regdata {
 
   void reset() { pos = 0; };
   int free() { return (2000-pos); };
-  int curAddr() { return (pos%6); };
+  int curAddr() { return (int(pos/6)); };
 
 };

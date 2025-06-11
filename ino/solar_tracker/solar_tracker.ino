@@ -40,6 +40,7 @@ Regdata reg;
 // variáveis de controle
 int modo = COLETA;
 float minuto = 0;
+float hora = 0;
 long tempo = 0;
 int erro = 3;
 float tolerancia = (2.55*erro);
@@ -80,8 +81,8 @@ void descarrega(){
     Serial.println();
     Serial.println(F("Descarregando os dados da memoria..") );
     Serial.println();
-    int data[5];
-    for( int p=0; p <= reg.curAddr(); p++) {
+    for( int p=0; p < reg.curAddr(); p++) {
+      int data[5];
       reg.read( p, data );
       for( int i=0; i<5; i++) {
           Serial.print( data[i] );
@@ -89,7 +90,7 @@ void descarrega(){
       }
       Serial.println();
     }
-    //reg.reset();
+    reg.reset();
   }
 }
 
@@ -97,6 +98,7 @@ void setup() {
   Serial.begin( SERIAL_RATE );
   Serial.println(F("SOLAR TRACKER"));
   Serial.println(F("-------------"));
+  /*
   Serial.println(F("Inicializando o RTC..."));
   while(!rtc.begin()) { delay(50); }
   if (! rtc.isrunning() ) {
@@ -106,7 +108,7 @@ void setup() {
 
   DateTime now = rtc.now();
   minuto = int(now.minute()/10)*10;
-
+  */
   Serial.println(F("Inicializando LDRs..."));
   // Configurando os LDRS
   pinMode( PIN_L, INPUT_PULLUP );    
@@ -127,6 +129,9 @@ void setup() {
   s2.setDutyMin( int( 200/18*alturaMin+400) );
   s2.setTarget( S2angulo );
 
+  s1.start();
+  s2.start();
+
   Serial.println(F("Inicializando o timer..."));
   //configura o timer interrupt para enviar o sinal de controle dos servos
   TCCR2A = 0xA3;                                        //pwm não invertido, fast pwm 
@@ -138,6 +143,9 @@ void setup() {
   Serial.println(F("Aperte C para entrar no modo de configuração"));
   Serial.println(F("Aperte D para descarregar dados da memória"));
   Serial.println();
+
+  minuto = minuto_inicio;
+  hora = hora_inicio;
   
 }
 
@@ -186,25 +194,30 @@ void loop() {
   s1.setTarget( S1angulo );
   s2.setTarget( S2angulo );
 
+  /*
   DateTime now = rtc.now();
   float agora = now.hour()+( now.minute()/60);
   float m = now.minute();
 
   //Se estiver no intervalo de amostragem e o minuto for multiplo de 10, faz leitura e salva na memória.
-  //if ( agora >= inicio && agora <= fim && m == minuto ) {
-  //  ( minuto == 50 ) && minuto = 0 || minuto+=10;
+  if ( agora >= inicio && agora <= fim && m == minuto ) {
+    ( minuto == 50 ) && minuto = 0 || minuto+=10;
+  */
   if (abs( millis()-tempo) > 2000 ) {
     
-    int h=now.hour();
+    //int h=now.hour();
     //Lendo TSC34725
     uint16_t r, g, b, c;
     //O sensor lê os valores do Vermelho (R), Verde(G), Azul(B)
     TCS.getRawData(&r, &g, &b, &c);
 
-    reg.write( h, m, r, g, b );
+    reg.write( int(hora), int(minuto), r, g, b );
+
+    minuto++;
+    if(minuto==60){ hora++; minuto=0; }
 
     String msg = "";
-    msg+=String(h)+":"+String(m);
+    msg+=String(int(hora))+":"+String(int(minuto));
     msg+=" | R: "+String(r)+" | G: "+String(g)+" | B: "+String(b);
   
     Serial.println( msg );

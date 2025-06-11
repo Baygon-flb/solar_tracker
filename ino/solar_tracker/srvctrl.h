@@ -81,6 +81,8 @@ class Srvctrl {
           digitalWrite( pin, HIGH);
           delayMicroseconds(duty);
           digitalWrite( pin,  LOW);
+          cSync=0;
+          step();
         }
       }
     };
@@ -99,19 +101,19 @@ class Srvctrl {
     bool stable() { return (pos == target); };
 
   // Para o servo
-    void srvStop() {
+    void stop() {
       duty = 0;
       digitalWrite( pin, LOW );
     };               
 
     // Inicia o servo
-    void srvStart() { duty = map( pos, angulo_min, angulo_max, pulse_min, pulse_max); };
+    void start() { duty = map( pos, angulo_min, angulo_max, pulse_min, pulse_max); };
 
     //SETS
 
     // Define o angulo alvo do servo, ou velocidade e direcao de rotacao, se servo 360o
     void setTarget( int angulo ) {
-      while( !stable() ){ delay(1);}
+      //while( !stable() ){ delay(1);}
       if( angulo >=angulo_min and angulo <=angulo_max ) {
         target = angulo;        
       }
