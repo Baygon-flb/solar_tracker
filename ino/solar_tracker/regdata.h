@@ -41,7 +41,7 @@ class Regdata {
     }      
   };
 
-  void reset() { pos = 0; };
+  void reset() { pos = 0; savePos(); };
   int free() { return (2000-pos); };
   int curAddr() { return (int(pos/6)); };
 

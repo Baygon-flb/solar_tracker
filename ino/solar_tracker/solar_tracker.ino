@@ -100,6 +100,8 @@ void config( ) {
   Serial.println(F("DEBUG"));
   Serial.println("Hora atual: "+String( now.hour())+":"+String(now.minute()));
   Serial.println("var minuto: "+String( minuto ));
+  Serial.println("Memoria Eprom livre: "+String( reg.free()));
+  Serial.println("Slot de memória atual: "+String( reg.curAddr()));
   
 }
 
@@ -109,7 +111,7 @@ void setup() {
   
   //Verfica se houve um reset devido travamento
   if (MCUSR&8) {
-    //recupera a última posição do ponteiro de memória
+    //recupera a última posição salva do ponteiro de memória
     //antes do travamento.
     reg.recover();    
   }
