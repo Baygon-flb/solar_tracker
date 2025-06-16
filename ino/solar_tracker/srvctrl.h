@@ -145,7 +145,7 @@ class Srvctrl {
     void setSync( long T = 20) {syncT = T;};
 
     // Retorna o angulo alvo de posição do servo
-    int getTarget() {return target;};
+    int getTarget() {return int(target);};
 
     // Retorna o valor corrente do duty Cycle do servo 
     int getDuty() {return duty;};

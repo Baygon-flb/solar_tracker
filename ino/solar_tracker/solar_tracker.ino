@@ -21,26 +21,25 @@
 
 #define PIN_S1 5
 #define PIN_S2 6
-#define PIN_L A0 //LDR1 leste 
-#define PIN_N A1 //LDR2 Norte
-#define PIN_S A2 //LDR3 Sul
-#define PIN_O A3 //LDR4 oeste
-
+#define PIN_N A0 //LDR1 leste 
+#define PIN_O A1 //LDR2 Norte
+#define PIN_L A2 //LDR3 Sul
+#define PIN_S A3 //LDR4 oeste
 #define SERIAL_RATE 115200
 #define DEBUG 0
 
 //Instanciando as classes
 Adafruit_TCS34725 TCS = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_300MS, TCS34725_GAIN_1X);
 RTC_DS1307 rtc;
-Srvctrl s1( PIN_S1 );
-Srvctrl s2( PIN_S2 );
+Srvctrl s1( PIN_S1 ); //altura
+Srvctrl s2( PIN_S2 ); //azimute
 Regdata reg;
 
 // variáveis de controle
 float minuto = 0;
 float hora = 0;
 long tempo = 0;
-int erro = 4;
+int erro = 2;
 float tolerancia = (2.55*erro);
 float intervalo = 1;
 
@@ -53,12 +52,18 @@ float inicio = hora_inicio+(minuto_inicio/60);
 float fim = hora_fim+(minuto_fim/60);
 
 //controle dos servos
-int azimuteMin = 10;
+int azimuteMin = 15;
 int azimuteMax = 170;
-int alturaMin = 15;
+int alturaMin = 10;
 int alturaMax = 170;
 int S1angulo = int((azimuteMax-azimuteMin)/2);
 int S2angulo = int((alturaMax-alturaMin)/2);
+
+//Calibragem LDR's
+int offset_N = 8;
+int offset_S = -8;
+int offset_L = -10;
+int offset_O = 10;
 
 void debug( String msg, bool nl = true ) {
 
@@ -102,7 +107,15 @@ void config( ) {
   Serial.println("var minuto: "+String( minuto ));
   Serial.println("Memoria Eprom livre: "+String( reg.free()));
   Serial.println("Slot de memória atual: "+String( reg.curAddr()));
-  
+  Serial.println("LDR's");
+  Serial.println("LDR1 (N): "+String( int( analogRead( PIN_N )+offset_N)));
+  Serial.println("LDR2 (O): "+String( int( analogRead( PIN_O )+offset_O)));
+  Serial.println("LDR3 (L): "+String( int( analogRead( PIN_L )+offset_L)));
+  Serial.println("LDR4 (S): "+String( int( analogRead( PIN_S )+offset_S)));
+  Serial.println("Servos:");
+  Serial.println("Azimute: "+String( int(s2.getTarget())));
+  Serial.println("Altura: "+String( int(s1.getTarget())));
+  Serial.println();
 }
 
 void setup() {
@@ -187,28 +200,41 @@ void loop() {
     S += analogRead( PIN_S );
     O += analogRead( PIN_O );
   }
-  L = L/10;
-  N = N/10;
-  S = S/10;
-  O = O/10;
+  L = L/10+offset_L;
+  N = N/10+offset_N;
+  S = S/10+offset_S;
+  O = O/10+offset_O;
  
   float _NE = N + L; //calcula luminosidade ao nordeste
   float _SE = S + L; //calcula luminosidade ao suldeste
   float _NO = N + O; //calcula luminosidade ao noroeste
   float _SO = S + O; //calcula luminosidade ao suldoeste
 
-  // Ajuste do angulo de altura
-  if ( abs( _SE - _SO ) > tolerancia || abs( _SE - _SO ) > tolerancia ) {
-    if (_SE > _SO && _NE > _NO ) { S2angulo--; }
-    if (_SE < _SO && _NE < _NO ) { S2angulo++; }
+  // Ajuste do angulo de azimute
+  /*
+  if ( abs( _SE - _SO ) > tolerancia || abs( _NE - _NO ) > tolerancia ) {
+    if (_SE > _SO && _NE > _NO ) { S2angulo++; }
+    if (_SE < _SO && _NE < _NO ) { S2angulo--; }
   }
+  */ 
+  if( abs( L - O ) > tolerancia) {
+    S2angulo -= ( L - O )/2;
+    //if ( L > O )  { S2angulo+=(l-); } else { S2angulo--; }
+  }
+  
 
-  //Ajuste do angulo de azimute
+  //Ajuste do angulo de altura
+  /*
   if ( abs( _SE - _NE) > tolerancia || abs( _SO - _NO) > tolerancia ) {
-    if (_SE > _NE && _SO > _NO ) { S1angulo--; }
-    if (_SE < _NE && _SO < _NO ) { S1angulo++; }
+    if (_SE > _NE && _SO > _NO ) { S1angulo++; }
+    if (_SE < _NE && _SO < _NO ) { S1angulo--; }
   }
-
+  */
+  if( abs( N - S ) > tolerancia) {
+    S1angulo -= ( N- S )/2;
+    //if ( N < S )  { S1angulo++; } else { S1angulo--; }
+  }
+  
   if( S1angulo > azimuteMax ) { S1angulo = azimuteMax; }
   if( S1angulo < azimuteMin ) { S1angulo = azimuteMin; }
   if( S2angulo > alturaMax ) { S2angulo = alturaMax; }
@@ -261,5 +287,11 @@ void loop() {
   char input = Serial.read();
   if ( String(input)=="D"){ descarrega(); }
   if ( String(input)=="C"){ config(); }
+  if ( String(input)=="R"){
+    Serial.println( "R para sair..");
+    s1.setTarget(90);
+    s2.setTarget(90);
+    while( Serial.read() != "R"){ delay(30);}
+  }
  
 }
