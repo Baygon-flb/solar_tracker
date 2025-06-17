@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 1.5
+          "min_clearance": 2.0
         }
       },
       "diff_pair_dimensions": [
@@ -600,7 +600,7 @@
   "sheets": [
     [
       "4b6f71df-fa7c-4673-9ace-988851c6f101",
-      "Root"
+      "Raiz"
     ],
     [
       "ac7019d5-3850-4651-acfd-b78620f95be5",

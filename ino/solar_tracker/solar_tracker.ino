@@ -39,25 +39,25 @@ Regdata reg;
 float minuto = 0;
 float hora = 0;
 long tempo = 0;
-int erro = 2;
+int erro = 3;
 float tolerancia = (2.55*erro);
 float intervalo = 1;
 
 //horarios de inicio e fim
 float hora_inicio = 5;
 float minuto_inicio=30;
-float hora_fim = 18;
+float hora_fim = 22;
 float minuto_fim=30;
 float inicio = hora_inicio+(minuto_inicio/60);
 float fim = hora_fim+(minuto_fim/60);
 
 //controle dos servos
 int azimuteMin = 15;
-int azimuteMax = 170;
+int azimuteMax = 175;
 int alturaMin = 10;
-int alturaMax = 170;
-int S1angulo = int((azimuteMax-azimuteMin)/2);
-int S2angulo = int((alturaMax-alturaMin)/2);
+int alturaMax = 175;
+int S2angulo = int((azimuteMax-azimuteMin)/2);
+int S1angulo = int((alturaMax-alturaMin)/2);
 
 //Calibragem LDR's
 int offset_N = 8;
@@ -104,7 +104,7 @@ void config( ) {
   Serial.println(F("---------------"));
   Serial.println(F("DEBUG"));
   Serial.println("Hora atual: "+String( now.hour())+":"+String(now.minute()));
-  Serial.println("var minuto: "+String( minuto ));
+  Serial.println("var minuto: "+String( int( minuto )));
   Serial.println("Memoria Eprom livre: "+String( reg.free()));
   Serial.println("Slot de memória atual: "+String( reg.curAddr()));
   Serial.println("LDR's");
@@ -121,13 +121,8 @@ void config( ) {
 void setup() {
   // coloca sensor TCS34725 em hibernação
   //TCS.disable();
-  
-  //Verfica se houve um reset devido travamento
-  if (MCUSR&8) {
-    //recupera a última posição salva do ponteiro de memória
-    //antes do travamento.
-    reg.recover();    
-  }
+
+  reg.recover(); // recupera a posicao de memoria anterior
 
   //habilita o whatchdog para 5s
   wdt_enable(WDTO_4S);
@@ -146,6 +141,7 @@ void setup() {
 
   DateTime now = rtc.now();
   minuto = int(now.minute()/intervalo)*intervalo;
+  hora = now.hour();
 
   Serial.println( "Hora atual: "+String( now.hour())+":"+String( now.minute()));
   
@@ -190,7 +186,7 @@ void setup() {
 }
 
 void loop() {
-   wdt_reset();
+  wdt_reset();
   
   // Faz 10 medições dos valores dos LDR's e calcula a média
   float L=0, N=0, S=0, O=0;
@@ -204,35 +200,17 @@ void loop() {
   N = N/10+offset_N;
   S = S/10+offset_S;
   O = O/10+offset_O;
- 
-  float _NE = N + L; //calcula luminosidade ao nordeste
-  float _SE = S + L; //calcula luminosidade ao suldeste
-  float _NO = N + O; //calcula luminosidade ao noroeste
-  float _SO = S + O; //calcula luminosidade ao suldoeste
+
+  float k=0.1; // Coeficiente proporcional
 
   // Ajuste do angulo de azimute
-  /*
-  if ( abs( _SE - _SO ) > tolerancia || abs( _NE - _NO ) > tolerancia ) {
-    if (_SE > _SO && _NE > _NO ) { S2angulo++; }
-    if (_SE < _SO && _NE < _NO ) { S2angulo--; }
-  }
-  */ 
   if( abs( L - O ) > tolerancia) {
-    S2angulo -= ( L - O )/2;
-    //if ( L > O )  { S2angulo+=(l-); } else { S2angulo--; }
+    S2angulo -= int(k*( L - O ));
   }
   
-
   //Ajuste do angulo de altura
-  /*
-  if ( abs( _SE - _NE) > tolerancia || abs( _SO - _NO) > tolerancia ) {
-    if (_SE > _NE && _SO > _NO ) { S1angulo++; }
-    if (_SE < _NE && _SO < _NO ) { S1angulo--; }
-  }
-  */
   if( abs( N - S ) > tolerancia) {
-    S1angulo -= ( N- S )/2;
-    //if ( N < S )  { S1angulo++; } else { S1angulo--; }
+    S1angulo -= int(k*( N - S ));
   }
   
   if( S1angulo > azimuteMax ) { S1angulo = azimuteMax; }
@@ -249,16 +227,18 @@ void loop() {
   DateTime now;
   if ( abs( millis()-tempo) > 5000 ) { 
     now = rtc.now();
-    agora = now.hour()+( now.minute()/60);
+    hora=now.hour();
     m = now.minute();
+    agora = hora+( m/60);
     tempo = millis();
   }
 
   //Se estiver no intervalo de amostragem, faz leitura e salva na memória.
-  if ( agora >= inicio && agora <= fim && m == minuto ) {
-  
+  if ( agora >= inicio && agora <= fim && ( int(m)%int(intervalo))==0 && m != minuto ) {
+
+    minuto=m;
+
   // if (abs( millis()-tempo) > 2000 ) {
-    int hora=now.hour();
     //Lendo TSC34725
     float r, g, b, c;
     TCS.getRGB( &r, &g, &b); //Coleta os dados já mormalizados para 0 a 255.
@@ -268,8 +248,9 @@ void loop() {
       delay( 1000 );
       TCS.enable();
       TCS.getRGB( &r, &g, &b);
-      wdt_reset();
     }
+    wdt_reset();
+  
     //Registra amostragem na EEprom
     reg.write( int(hora), int(minuto), r, g, b );
 
@@ -279,9 +260,6 @@ void loop() {
   
     Serial.println( msg );
 
-    // Ajusta o próximo intervalo de amostragem
-    minuto+=intervalo;
-    if ( minuto >= 60 ) { minuto = 0; }
   }
   delay( 30 ); 
   char input = Serial.read();

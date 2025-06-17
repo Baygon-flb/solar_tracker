@@ -65,7 +65,7 @@ class Srvctrl {
     Srvctrl( int _pin ){
       pin = _pin;
       pinMode( pin, OUTPUT);
-      digitalWrite( pin, LOW );
+      //digitalWrite( pin, LOW );
       duty = 0;
       pos = 0;
       target = -1;

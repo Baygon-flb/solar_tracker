@@ -4,6 +4,7 @@
 class Regdata {
 
   int pos = 0; //ponteiro de posição da memória
+  int reserva = 100;
 
   // salva o ponteiro de memoria
   void savePos(){
@@ -20,30 +21,33 @@ class Regdata {
   void write( int h, int m, int r, int g, int b ) {
     char data[5]={ h,m,r,g,b };
     //verifica overflow de memória
-    if( (2000-pos) < 5 ) { pos = 0; }
+    if( ((2000-reserva)-pos) < 5 ) { pos = 0; }
     //Grava os dados na memória 
     //Offset de 2 posiçoes: 
     //Posicoes 0 e 1 reservadas para 
     //o valor do ponteiro de memória
-    for( int i=0; i<5; i++){ 
-      EEPROM.write( pos+2, data[i] );
-      pos++;
+    int i = 0;
+    int posfinal = pos+5;
+    for( pos; pos<(posfinal); pos++){ 
+      EEPROM.write( pos+reserva, data[i] );
+      i++;
     }      
-    pos++;
     savePos();
   };
 
   void read( int numReg, int data[] ) {
-    int p = numReg*5;
-    for( int i=0; i<5; i++){ 
-      data[i] = EEPROM.read( p+2 );
-      p++;
+    int p = (numReg*5)+reserva;
+    int pfim = p+5;
+    int i=0;
+    for( p; p<pfim; p++){ 
+      data[i] = EEPROM.read( p );
+      i++;
     }      
   };
 
   void reset() { pos = 0; savePos(); };
-  int free() { return (2000-pos); };
-  int curAddr() { return (int(pos/6)); };
+  int free() { return ((2000-reserva)-pos); };
+  int curAddr() { return (int(pos/5)); };
 
   //recupera a última posição do ponteiro de memória
   void recover(){

@@ -1345,6 +1345,7 @@
 	)
 	(label "LDR4"
 		(at 44.45 87.63 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1355,6 +1356,7 @@
 	)
 	(label "SCL"
 		(at 44.45 92.71 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1365,6 +1367,7 @@
 	)
 	(label "LDR2"
 		(at 44.45 82.55 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1375,6 +1378,7 @@
 	)
 	(label "LDR1"
 		(at 55.88 48.26 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1385,6 +1389,7 @@
 	)
 	(label "LDR4"
 		(at 93.98 48.26 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1395,6 +1400,7 @@
 	)
 	(label "LDR1"
 		(at 44.45 80.01 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1405,6 +1411,7 @@
 	)
 	(label "SDA"
 		(at 44.45 90.17 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1415,6 +1422,7 @@
 	)
 	(label "LDR3"
 		(at 44.45 85.09 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1425,6 +1433,7 @@
 	)
 	(label "LDR3"
 		(at 81.28 48.26 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1435,6 +1444,7 @@
 	)
 	(label "SCL"
 		(at 95.25 86.36 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1445,6 +1455,7 @@
 	)
 	(label "3.3v"
 		(at 44.45 77.47 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1455,6 +1466,7 @@
 	)
 	(label "GND"
 		(at 44.45 74.93 0)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1465,6 +1477,7 @@
 	)
 	(label "LDR2"
 		(at 68.58 48.26 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1475,6 +1488,7 @@
 	)
 	(label "SDA"
 		(at 95.25 90.17 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1486,6 +1500,7 @@
 	(hierarchical_label "SDA"
 		(shape input)
 		(at 39.37 90.17 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1497,6 +1512,7 @@
 	(hierarchical_label "LDR1"
 		(shape input)
 		(at 39.37 80.01 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1508,6 +1524,7 @@
 	(hierarchical_label "3.3V"
 		(shape input)
 		(at 39.37 77.47 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1519,6 +1536,7 @@
 	(hierarchical_label "SCL"
 		(shape input)
 		(at 39.37 92.71 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1530,6 +1548,7 @@
 	(hierarchical_label "GND"
 		(shape input)
 		(at 39.37 74.93 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1541,6 +1560,7 @@
 	(hierarchical_label "LDR3"
 		(shape input)
 		(at 39.37 85.09 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1552,6 +1572,7 @@
 	(hierarchical_label "LDR2"
 		(shape input)
 		(at 39.37 82.55 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -1563,6 +1584,7 @@
 	(hierarchical_label "LDR4"
 		(shape input)
 		(at 39.37 87.63 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
