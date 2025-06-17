@@ -493,7 +493,7 @@
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
-      "svg": "",
+      "svg": "../../doc/",
       "vrml": ""
     },
     "page_layout_descr_file": ""
@@ -600,7 +600,7 @@
   "sheets": [
     [
       "4b6f71df-fa7c-4673-9ace-988851c6f101",
-      "Raiz"
+      "Root"
     ],
     [
       "ac7019d5-3850-4651-acfd-b78620f95be5",

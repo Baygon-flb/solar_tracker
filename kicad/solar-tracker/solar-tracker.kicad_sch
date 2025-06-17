@@ -5125,7 +5125,7 @@
 			(uuid "6ba87464-39c5-4495-8bce-eb9a6d414aba")
 		)
 		(instances
-			(project ""
+			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
 					(reference "#PWR08")
 					(unit 1)
@@ -5261,7 +5261,7 @@
 			(uuid "cb2cb7ed-3a18-435a-a119-f28141972e7a")
 		)
 		(instances
-			(project ""
+			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
 					(reference "#PWR07")
 					(unit 1)
@@ -5327,7 +5327,7 @@
 			(uuid "69804fb8-b422-46e3-843f-02215268da22")
 		)
 		(instances
-			(project ""
+			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
 					(reference "#PWR09")
 					(unit 1)
@@ -5555,7 +5555,7 @@
 			(uuid "7a6e25e6-6186-425b-ba8f-31b8f50a95ad")
 		)
 		(instances
-			(project ""
+			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
 					(reference "C1")
 					(unit 1)
@@ -5641,7 +5641,7 @@
 			(uuid "8bef5d29-c275-4bbd-abb1-afba8b3bbac3")
 		)
 		(instances
-			(project ""
+			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
 					(reference "D1")
 					(unit 1)
@@ -5711,7 +5711,7 @@
 			(uuid "93b58c80-0adc-431d-850e-ab45f3c4c4de")
 		)
 		(instances
-			(project ""
+			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
 					(reference "C6")
 					(unit 1)
@@ -5864,24 +5864,21 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "c590df33-0753-4a59-8bf5-8b7b47409814")
-		(property "Reference" "M2"
-			(at 100.33 84.6565 0)
+		(property "Reference" "S2"
+			(at 94.996 84.074 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "Motor_Servo"
-			(at 100.33 87.1965 0)
+		(property "Value" "Servo azimute"
+			(at 94.996 86.614 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "solar_tracker:PinHeader_1x03_P2.54mm_Vertical"
@@ -5923,7 +5920,7 @@
 		(instances
 			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
-					(reference "M2")
+					(reference "S2")
 					(unit 1)
 				)
 			)
@@ -5987,7 +5984,7 @@
 			(uuid "c5681bdd-a391-464e-a1d4-f98f9cae16dd")
 		)
 		(instances
-			(project ""
+			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
 					(reference "#PWR010")
 					(unit 1)
@@ -6208,7 +6205,7 @@
 			(uuid "8e2a8eee-af3e-4b4f-b687-301fdcb294ce")
 		)
 		(instances
-			(project ""
+			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
 					(reference "C5")
 					(unit 1)
@@ -6225,24 +6222,21 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "fa1135bd-ed2f-489b-9de4-94c01f9ee617")
-		(property "Reference" "M1"
-			(at 100.33 74.4965 0)
+		(property "Reference" "S1"
+			(at 94.996 73.914 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "Motor_Servo"
-			(at 100.33 77.0365 0)
+		(property "Value" "Servo Altura"
+			(at 94.996 76.454 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "solar_tracker:PinHeader_1x03_P2.54mm_Vertical"
@@ -6284,7 +6278,7 @@
 		(instances
 			(project "solar-tracker"
 				(path "/4b6f71df-fa7c-4673-9ace-988851c6f101"
-					(reference "M1")
+					(reference "S1")
 					(unit 1)
 				)
 			)
