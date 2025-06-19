@@ -8,7 +8,6 @@
 //Instanciando as classes
 RTC_DS1307 rtc;
 
-
 // retorna o ultimo dia do mes
 int ultimoDiaMes( int m, int ano ) {
   int ultimoDia[12][2] = {{1,31},{2,28},{3,31},{4,30},{5,31},{6,30},{7,31},{8,31},{9,30},{10,31},{11,30},{12,31}};
@@ -22,7 +21,7 @@ int ultimoDiaMes( int m, int ano ) {
 // conforme comando recebido pela serial (+ ou -)
 // Verifica se o parâmetro está dentro dos limites informados
 // Retorna true se o parametro sofreu alguma alteracao
-bool ajusta( int par, String titulo, int min, int max ) {
+bool ajusta( int &par, String titulo, int min, int max ) {
   Serial.println( "Ajustando o "+titulo);
   Serial.println( "Pressione + ou - para ajustar, s para sair");
   Serial.println( par );
@@ -38,9 +37,9 @@ bool ajusta( int par, String titulo, int min, int max ) {
     }
     while(!Serial.available()){ delay(30); }
     char input = Serial.read();
-    if( input = "s") { break; }
-    if( input == "+" ) { par++; }
-    if( input == "-" ) { par--; }
+    if( String(input)=="s" ) { break; }
+    if( String(input)=="+" ) { par++; }
+    if( String(input)=="-" ) { par--; }
     if (par>max) { par = min; }
     if (par<min) { par = max; }
   }
@@ -70,40 +69,43 @@ void setup() {
 }
 
 int s = 0;
+long tempo = 0;
 
 void loop() {
 
   //variaveis de horário para ajuste do RTC
   int dia, mes, ano, hora, minuto, segundo;
 
-  DateTime now = rtc.now();
-  segundo = now.second();
-  dia = now.day();
-  mes = now.month();
-  ano = now.year();
-  hora = now.hour();
-  minuto = now.minute();
-
-  //Exibe o horário a cada 10s
-  if ( segundo > s ) {
-    Serial.println( "Horário atual: "+String(dia)+"-"+String(mes)+"-"+String(ano)+"  "+String(hora)+":"+String(minuto)+String(segundo));
-    s = ( (segundo+10) > 59 ) ? 0 : segundo+10;
+  if ( abs(millis()-tempo) > 10000 ) {
+    DateTime now = rtc.now();
+    segundo = now.second();
+    dia = now.day();
+    mes = now.month();
+    ano = now.year();
+    hora = now.hour();
+    minuto = now.minute();
+    Serial.println( "Horário atual: "+String(dia)+"-"+String(mes)+"-"+String(ano)+"  "+String(hora)+":"+String(minuto)+":"+String(segundo));
+    tempo = millis();
   }
   
   delay( 30 ); 
 
   // Verifica se recebeu algum comando pela serial
   bool mudou = false;
-  char input = Serial.read();
-  if ( String(input)=="d"){ mudou=ajusta( &dia,"dia", 1, ultimoDiaMes( mes, ano ) ); }
-  if ( String(input)=="M"){ mudou=ajusta( &mes, "mês", 1, 12 ); }
-  if ( String(input)=="a"){ mudou=ajusta( &ano, "ano", 1970, 2200 ); }
-  if ( String(input)=="h"){ mudou=ajusta( &hora, "hora", 0, 23 ); }
-  if ( String(input)=="m"){ mudou=ajusta( &minuto,"minuto", 0, 59 ); }
+
+  if ( Serial.available() ) { 
+    char input = Serial.read(); 
+    if ( String(input)=="d" ){ mudou=ajusta( dia,"dia", 1, ultimoDiaMes( mes, ano ) ); }
+    if ( String(input)=="M" ){ mudou=ajusta( mes, "mês", 1, 12 ); }
+    if ( String(input)=="a" ){ mudou=ajusta( ano, "ano", 1970, 2200 ); }
+    if ( String(input)=="h" ){ mudou=ajusta( hora, "hora", 0, 23 ); }
+    if ( String(input)=="m" ){ mudou=ajusta( minuto,"minuto", 0, 59 ); }
+  }
 
   // Se houve alguma mudança, ajusta o horário do RTC
   if( mudou ) {
     rtc.adjust( DateTime(ano,mes,dia,hora,minuto,segundo) );
+    tempo = 0;
   }
  
 }

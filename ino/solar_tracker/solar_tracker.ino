@@ -60,10 +60,10 @@ int S2angulo = int((azimuteMax-azimuteMin)/2);
 int S1angulo = int((alturaMax-alturaMin)/2);
 
 //Calibragem LDR's
-int offset_N = 8;
-int offset_S = -8;
-int offset_L = -10;
-int offset_O = 10;
+float offset_N = 0.043;
+float offset_S = -0.04;
+float offset_L = -0.06;
+float offset_O = 0.07;
 
 void debug( String msg, bool nl = true ) {
 
@@ -196,10 +196,10 @@ void loop() {
     S += analogRead( PIN_S );
     O += analogRead( PIN_O );
   }
-  L = L/10+offset_L;
-  N = N/10+offset_N;
-  S = S/10+offset_S;
-  O = O/10+offset_O;
+  L = L/10+(L/10*offset_L);
+  N = N/10+(N/10*offset_N);
+  S = S/10+(S/10*offset_S);
+  O = O/10+(O/10*offset_O);
 
   float k=0.1; // Coeficiente proporcional
 
