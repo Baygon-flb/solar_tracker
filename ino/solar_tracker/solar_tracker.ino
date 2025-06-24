@@ -33,7 +33,6 @@ Adafruit_TCS34725 TCS = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_300MS, TCS347
 RTC_DS1307 rtc;
 Srvctrl s1( PIN_S1 ); //altura
 Srvctrl s2( PIN_S2 ); //azimute
-Regdata reg;
 
 // variáveis de controle
 float minuto = 0;
@@ -65,6 +64,21 @@ float offset_S = -0.04;
 float offset_L = -0.06;
 float offset_O = 0.07;
 
+//Configuracao do registro de dados
+// O formato do registro de dados é  
+// Para resoluçao de 8 bits por canal de cor: 
+// [ hora - 1 byte ][ minuto - 1 byte][ Red - 1 byte][ green - 1 byte][ blue - 1 byte] = 5 bytes
+// Capacidade de memória para cerca de 400 registros
+// 
+// Para resoluçao de 16 bits por canal de cor: 
+// [ hora - 1 byte ][ minuto - 1 byte][ Red - 2 bytes][ green - 2 bytes][ blue - 1 bytes] = 8 bytes
+// Capacidade de memória para cerca de 250 registros
+//
+int resolucao = 2; //Resolução em bytes do registro de dados do sensor
+int lenReg = 2+(4*resolucao); //tamanho do registro de dados
+int reserva = 10; //numero de bytes para serem reservados no inicio da memória
+Regdata reg(lenReg, reserva);
+
 void debug( String msg, bool nl = true ) {
 
   if( Serial && DEBUG ) {
@@ -87,8 +101,13 @@ void descarrega(){
   Serial.println(F("Descarregando os dados da memoria..") );
   Serial.println();
   for( int p=0; p < reg.curAddr(); p++) {
-    int data[5];
+    int data[ lenReg ];
     reg.read( p, data );
+    if( resolucao == 2 ){
+      data[2] = data[2]*255+data[3];
+      data[3] = data[4]*255+data[5];
+      data[4] = data[6]*255+data[7];
+    }
     for( int i=0; i<5; i++) {
       Serial.print( data[i] );
       Serial.print(";");
@@ -235,24 +254,43 @@ void loop() {
 
   //Se estiver no intervalo de amostragem, faz leitura e salva na memória.
   if ( agora >= inicio && agora <= fim && ( int(m)%int(intervalo))==0 && m != minuto ) {
-
     minuto=m;
-
-  // if (abs( millis()-tempo) > 2000 ) {
     //Lendo TSC34725
-    float r, g, b, c;
-    TCS.getRGB( &r, &g, &b); //Coleta os dados já mormalizados para 0 a 255.
-    while ( r+g+b == 0 ) {
+    uint16_t r=0, g=0, b=0, c=0;
+    while ( true ) {
+      if( resolucao == 1 ){
+        float r=0, g=0, b=0;
+        TCS.getRGB( &r, &g, &b);
+      }  
+      else { 
+        TCS.getRawData( &r, &g, &b, &c ); 
+      }     
+      if( !((r+g+b+c)==0) ) { break; }
       Serial.println( "Erro na leitura do sensor");
       TCS.disable();
       delay( 1000 );
-      TCS.enable();
-      TCS.getRGB( &r, &g, &b);
+      TCS.enable();      
     }
     wdt_reset();
   
+    uint8_t data[ lenReg ];
+    data[0] = uint8_t( hora );
+    data[1] = uint8_t( minuto );
+    if( resolucao == 1 ){
+      data[2] = uint8_t( r );
+      data[3] = uint8_t( g );
+      data[4] = uint8_t( b );
+    } else {
+      data[2] = uint8_t( r/255 );
+      data[3] = uint8_t( r - (data[2]*255));
+      data[4] = uint8_t( g/255 );
+      data[5] = uint8_t( g - (data[4]*255));
+      data[6] = uint8_t( b/255 );
+      data[7] = uint8_t( b - (data[6]*255));
+    }
+    
     //Registra amostragem na EEprom
-    reg.write( int(hora), int(minuto), r, g, b );
+    reg.write( data );
 
     String msg = "";
     msg+=String(int(hora))+":"+String(int(minuto));
